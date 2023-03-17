@@ -1,6 +1,8 @@
 import { db } from '../db.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 // register controller
 export const register = (req, res) => {
@@ -36,7 +38,7 @@ export const login = (req, res) => {
     if (!isValidPassword)
       return res.status(400).json('Invalid username or password');
 
-    const token = jwt.sign({ id: data[0].id }, 'mgetenergyKey');
+    const token = jwt.sign({ id: data[0].id }, process.env.JWT_KEY);
     const { password, ...others } = data[0];
     res
       .cookie('access_token', token, {
