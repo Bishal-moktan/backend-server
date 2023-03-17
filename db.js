@@ -3,8 +3,8 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export const db = mysql.createConnection({
-  host: 'dpg-cga6ukkeoogtbdu5qpmg-a',
-  user: 'mget_blog_db_user',
+  host: 'sql12.freemysqlhosting.net',
+  user: 'sql12606549',
   password: process.env.DB_PW,
-  database: 'mget_blog_db',
+  database: 'sql12606549',
 });

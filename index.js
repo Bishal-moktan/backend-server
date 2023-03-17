@@ -16,6 +16,9 @@ app.use(cors());
 app.use(cookieParser());
 app.use('/api/posts', postRoute);
 app.use('/api/auth', authRoute);
+app.get('/', (req, res) => {
+  res.send('hello');
+});
 
 app.listen(process.env.PORT || 8800, () => {
   console.log('Server is running....');
