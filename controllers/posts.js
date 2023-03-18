@@ -28,13 +28,11 @@ export const detelePost = (req, res) => {
 
 export const addPost = async (req, res) => {
   const { title, desc, img, date, uid } = req.body;
-  // console.log(title, desc, img, date);
   try {
     if (img) {
       const uploadRes = await cloudinary.uploader.upload(img, {
         upload_preset: 'mgetenergy_blog',
       });
-      // console.log(title, uploadRes.url, desc, date);
       const q =
         'INSERT INTO posts(`title`, `desc`, `img`, `date`,`uid`) VALUES (?)';
       const values = [title, desc, uploadRes.url, date, uid];
@@ -50,6 +48,18 @@ export const addPost = async (req, res) => {
   }
 };
 
-export const updatePost = (req, res) => {
-  res.json('This is from controllers');
+//update post
+export const updatePost = async (req, res) => {
+  const postId = req.params.id;
+  const { title, desc, date } = req.body;
+  try {
+    const q = 'UPDATE posts SET `title`=?, `desc`=?, `date`=? where id=?';
+    const values = [title, desc, date];
+    db.query(q, [...values, postId], (err, data) => {
+      if (err) return res.status(500).json(err);
+      res.status(200).json('Post has been updated.');
+    });
+  } catch (error) {
+    res.status(500).json('Some error occurred');
+  }
 };
