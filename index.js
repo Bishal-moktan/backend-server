@@ -16,10 +16,12 @@ app.use(cors());
 app.use(cookieParser());
 app.use('/api/posts', postRoute);
 app.use('/api/auth', authRoute);
+
 app.get('/', (req, res) => {
-  res.send('hello');
+  res.json('Hello');
 });
 
-app.listen(process.env.PORT || 8800, () => {
-  console.log('Server is running....');
+const PORT = process.env.PORT || 8800;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
